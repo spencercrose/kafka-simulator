@@ -16,6 +16,13 @@ const kafka = new Kafka({
   brokers: [process.env.KAFKA_BROKER],
 });
 
+const producer = kafka.producer();
+const consumer = kafka.consumer({ groupId: 'test-group' });
+
+// Set up Express
+const app = express();
+const port = 4000;
+
 // Allow CORS requests from the specified KAFKA_BROKER
 const corsOptions = {
   origin: [process.env.KAFKA_BROKER],
@@ -32,13 +39,6 @@ app.use(morgan(loggingFormat));
 
 // Middleware to parse JSON payload
 app.use(express.json());
-
-const producer = kafka.producer();
-const consumer = kafka.consumer({ groupId: 'test-group' });
-
-// Set up Express
-const app = express();
-const port = 4000;
 
 // Start Kafka producer
 async function startProducer() {
