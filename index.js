@@ -14,7 +14,7 @@ const port = 4000;
 
 // Allow CORS requests from the specified CLIENT_HOST
 const corsOptions = {
-  origin: [process.env.CLIENT_HOST],
+  origin: [process.env.KAFKA_BROKER],
 };
 
 app.use(cors(corsOptions));
